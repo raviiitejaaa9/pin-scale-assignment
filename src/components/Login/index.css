@@ -1,0 +1,91 @@
+/*
+let isUserPresent 
+        const reqUser = userDetails.filter(eachUser => eachUser.email === username )
+        if (reqUser.length === 0) {
+            const msg = "username is wrong"
+            this.onSubmitFailure(msg) 
+        }
+        else {
+            const user = reqUser[0]
+            if (user.password !== password){
+                const msg = "password is wrong"
+                this.onSubmitFailure(msg)
+            }
+            else{
+                this.onSubmitSuccess(user)
+            }
+        }   
+ const response = await axios.get(apiUrl, {
+            headers: headers,
+            data: userInfo, // Sending the userInfo object as the request body
+          })
+        console.log(response)
+        const data = await response.json()
+        console.log(data)       
+
+     'x-hasura-admin-secret':
+        'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzY',   
+*/
+
+.login-page {
+  background-color: aliceblue;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo-image {
+  width: 500px;
+  height: 350px;
+}
+
+.login-form {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.input-el-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-el {
+  width: 230px;
+  height: 26px;
+  outline: none;
+  cursor: pointer;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.label-el {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.btn-container {
+  align-self: center;
+}
+
+.login-btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: none;
+  border-radius: 4px;
+  width: 95px;
+  height: 26px;
+  background-color: #5151ef;
+}
+
+.error-msg {
+  color: red;
+}

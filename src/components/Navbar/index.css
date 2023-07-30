@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.vertical-navbar {
+  background-color: #ffffff;
+  width: 15vw;
+  max-width: 220px;
+  padding: 8px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid lightgrey;
+}
+
+.navbar-items {
+  list-style-type: none;
+  margin-top: 10px;
+}
+
+.navbar-link {
+  text-decoration: none;
+}
+
+.list-items {
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.nav-profile-sec {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-img {
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  border: none;
+}
+
+.name-email-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-logout-btn-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.react-icon {
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+/*
+ <Switch>
+    <Route exact path="/login" component={Login} />
+    <ProtectedRoute exact path="/" component={Home} />
+    <ProtectedRoute exact path="/products" component={Products} />
+    <ProtectedRoute exact path="/products/:id" component={ProductItemDetails} />
+    <ProtectedRoute exact path="/cart" component={Cart} />
+    <Route path="/not-found" component={NotFound} />
+    <Redirect to="not-found" />
+  </Switch>
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.link-el {
+  text-decoration: none;
+}
