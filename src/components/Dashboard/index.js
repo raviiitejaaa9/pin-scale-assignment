@@ -2,6 +2,7 @@ import {Component} from 'react'
 import Cookie from 'js-cookie'
 
 import Navbar from '../Navbar'
+import MobileNavbar from '../MobileNavbar'
 import Header from '../Header'
 import UserLastTransactions from '../UserLastTransactions'
 import Barchart from '../Barchart'
@@ -155,7 +156,12 @@ class Dashboard extends Component {
     return (
       <div className="app-container">
         <Navbar isSelected={selected} onChangeNavItem={this.onChangeNavItem} />
+
         <div className="app-sec">
+          <MobileNavbar
+            isSelected={selected}
+            onChangeNavItem={this.onChangeNavItem}
+          />
           <Header headerName="Accounts" />
           <div className="dashboard-container">
             <div className="debit-credit-sec">

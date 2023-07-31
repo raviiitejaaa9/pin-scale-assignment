@@ -90,3 +90,15 @@ body {
 .barchart-sec {
   margin: 10px;
 }
+
+@media (min-width: 899px) {
+  .mobile-navbar {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .vertical-navbar {
+    display: none;
+  }
+}

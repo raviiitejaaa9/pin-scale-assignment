@@ -1,4 +1,6 @@
 import {Link} from 'react-router-dom'
+import {AiFillHome, AiFillDollarCircle} from 'react-icons/ai'
+import {BsFillPersonFill} from 'react-icons/bs'
 
 import LogoutPopup from '../LogoutPopup'
 import './index.css'
@@ -33,17 +35,26 @@ const Navbar = props => {
         <ul className="navbar-items">
           <Link to="/" className="link-el">
             <li className="list-items" onClick={onClickDashboard}>
-              Dashboard
+              <div className="nav-icon-el-container">
+                <AiFillHome className="nav-icons" />
+                <p> Dashboard </p>
+              </div>
             </li>
           </Link>
           <Link to="all-transactions" className="link-el">
             <li className="list-items" onClick={onClickTransactions}>
-              All Transactions
+              <div className="nav-icon-el-container">
+                <AiFillDollarCircle className="nav-icons" />
+                <p> All Transactions </p>
+              </div>
             </li>
           </Link>
           <Link to="/profile" className="link-el">
             <li className="list-items" onClick={onClickProfile}>
-              Profile
+              <div className="nav-icon-el-container">
+                <BsFillPersonFill className="nav-icons" />
+                <p> Profile </p>
+              </div>
             </li>
           </Link>
         </ul>

@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import Cookie from 'js-cookie'
 import Navbar from '../Navbar'
+import MobileNavbar from '../MobileNavbar'
 import Header from '../Header'
 
 import './index.css'
@@ -91,6 +92,10 @@ class Profile extends Component {
       <div className="app-container">
         <Navbar isSelected={selected} onChangeNavItem={this.onChangeNavItem} />
         <div className="app-sec">
+          <MobileNavbar
+            isSelected={selected}
+            onChangeNavItem={this.onChangeNavItem}
+          />
           <Header headerName="Profile" />
           <div className="profile-container">
             <div className="profile-sec">

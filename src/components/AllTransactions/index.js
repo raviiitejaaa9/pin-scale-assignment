@@ -2,6 +2,7 @@ import {Component} from 'react'
 import Cookie from 'js-cookie'
 
 import Navbar from '../Navbar'
+import MobileNavbar from '../MobileNavbar'
 import TransactionsHeader from '../TransactionsHeader'
 import TransactionItem from '../TransactionItem'
 import DashTransactionItem from '../DashTransactionItem'
@@ -148,6 +149,10 @@ class AllTransactions extends Component {
       <div className="app-container">
         <Navbar isSelected={selected} onChangeNavItem={this.onChangeNavItem} />
         <div className="app-sec">
+          <MobileNavbar
+            isSelected={selected}
+            onChangeNavItem={this.onChangeNavItem}
+          />
           <TransactionsHeader
             headerName="All Transactions"
             changeList={this.changeList}

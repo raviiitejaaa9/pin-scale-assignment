@@ -58,3 +58,29 @@
 .admin-amount {
   width: 22%;
 }
+
+@media screen and (max-width: 768px) {
+  .transactions-list-container {
+    width: 100%;
+  }
+
+  .transaction-name-sec {
+    flex-direction: column;
+  }
+
+  .transaction-name,
+  .transaction-para,
+  .amount {
+    width: 100%;
+  }
+
+  .admin-transactions-list-container {
+    width: 100%;
+  }
+
+  .admin-transaction-name,
+  .admin-transaction-para,
+  .admin-amount {
+    width: 100%;
+  }
+}

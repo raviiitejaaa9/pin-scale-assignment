@@ -1,3 +1,4 @@
+import {withRouter} from 'react-router-dom'
 import Cookie from 'js-cookie'
 import AddPopup from '../AddPopup'
 
@@ -28,4 +29,4 @@ const Header = props => {
   )
 }
 
-export default Header
+export default withRouter(Header)
