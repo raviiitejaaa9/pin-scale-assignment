@@ -20,7 +20,7 @@ const App = () => (
     />
     <ProtectedRoute exact path="/profile" component={Profile} />
     <Route path="/not-found" component={NotFound} />
-    <Redirect to="not-found" />
+    <Redirect to="/not-found" />
   </Switch>
 )
 
