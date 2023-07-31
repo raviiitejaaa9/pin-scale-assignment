@@ -1,12 +1,12 @@
 import {BiDownArrowCircle, BiUpArrowCircle} from 'react-icons/bi'
-import {BsPencil} from 'react-icons/bs'
-import {RiDeleteBinLine} from 'react-icons/ri'
 
+import UpdatePopup from '../UpdatePopup'
+import DeletePopup from '../DeletePopup'
 import './index.css'
 
 const TransactionItem = props => {
   const {eachTransaction} = props
-  const {transactionName, type, amount, category, date} = eachTransaction
+  const {id, transactionName, type, amount, category, date} = eachTransaction
   let amountEl
   let iconEl
   if (type === 'debit') {
@@ -41,8 +41,8 @@ const TransactionItem = props => {
         <div className="amount">
           {amountEl}
           <div className="icons-container">
-            <BsPencil className="icons pencil-icon " />
-            <RiDeleteBinLine className="icons debit-transaction" />
+            <UpdatePopup id={id} />
+            <DeletePopup id={id} />
           </div>
         </div>
       </li>

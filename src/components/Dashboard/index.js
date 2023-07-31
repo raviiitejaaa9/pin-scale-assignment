@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
 import Cookie from 'js-cookie'
 
 import Navbar from '../Navbar'
@@ -19,76 +18,96 @@ class Dashboard extends Component {
   state = {
     creditBalance: 0,
     debitBalance: 0,
-    lastThreeeTransactions: [],
     barDataList: [],
     selected: apiConstants.dashboard,
   }
 
   async componentDidMount() {
-    const apiUrl =
+    const userUrl =
       'https://bursting-gelding-24.hasura.app/api/rest/credit-debit-totals'
+    const adminUrl =
+      'https://bursting-gelding-24.hasura.app/api/rest/transaction-totals-admin'
     const jwtToken = Cookie.get('jwt_token')
-
-    let userRole
-    if (jwtToken === 3) {
-      userRole = 'admin'
+    let currentUser
+    if (jwtToken === '3') {
+      currentUser = 'admin'
     } else {
-      userRole = 'user'
+      currentUser = 'user'
     }
 
-    const options = {
+    const userOptions = {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
         'x-hasura-admin-secret':
           'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-        'x-hasura-role': userRole,
+        'x-hasura-role': currentUser,
         'x-hasura-user-id': jwtToken,
       },
     }
 
-    const response = await fetch(apiUrl, options)
-    // console.log(response)
+    const adminOptions = {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret':
+          'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
+        'x-hasura-role': currentUser,
+      },
+    }
+
+    let response = {}
+
+    if (currentUser === 'user') {
+      response = await fetch(userUrl, userOptions)
+    } else {
+      response = await fetch(adminUrl, adminOptions)
+    }
 
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
-      const modifiedData = {
-        creditDebitTransactions: data.totals_credit_debit_transactions,
+      let modifiedData = {}
+      if (currentUser === 'user') {
+        modifiedData = {
+          creditDebitTransactions: data.totals_credit_debit_transactions,
+        }
+      } else {
+        modifiedData = {
+          creditDebitTransactions: data.transaction_totals_admin,
+        }
       }
-      // console.log(modifiedData)
       const {creditDebitTransactions} = modifiedData
-      // console.log(creditDebitTransactions)
       this.onSuccess(creditDebitTransactions)
     } else {
       this.onFailure()
     }
 
-    const adminBarUrl =
+    const adminBarDataUrl =
       'https://bursting-gelding-24.hasura.app/api/rest/daywise-totals-last-7-days-admin'
 
-    const barDataUrl =
+    const userBarDataUrl =
       'https://bursting-gelding-24.hasura.app/api/rest/daywise-totals-7-days'
-    const barOptions = {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        'x-hasura-admin-secret':
-          'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-        'x-hasura-role': userRole,
-        'x-hasura-user-id': jwtToken,
-      },
+
+    let barResponse = {}
+    if (currentUser === 'user') {
+      barResponse = await fetch(userBarDataUrl, userOptions)
+    } else {
+      barResponse = await fetch(adminBarDataUrl, adminOptions)
     }
-    const barResponse = await fetch(barDataUrl, barOptions)
-    // console.log(barResponse)
 
     if (barResponse.ok) {
       const barData = await barResponse.json()
-      // console.log(barData)
-      const modifiedBarData = {
-        last7Transactions: barData.last_7_days_transactions_credit_debit_totals,
+      let modifiedBarData = {}
+      if (currentUser === 'user') {
+        modifiedBarData = {
+          last7Transactions:
+            barData.last_7_days_transactions_credit_debit_totals,
+        }
+      } else {
+        modifiedBarData = {
+          last7Transactions: barData.last_7_days_transactions_totals_admin,
+        }
       }
-      // console.log(modifiedBarData)
       const {last7Transactions} = modifiedBarData
       this.onBarApiSuccess(last7Transactions)
     } else {
@@ -97,8 +116,6 @@ class Dashboard extends Component {
   }
 
   onSuccess = data => {
-    // console.log('success')
-    // console.log(data)
     let debitAmount = 0
     let creditAmount = 0
     const eachList = data.map(each => {
@@ -109,6 +126,7 @@ class Dashboard extends Component {
       }
       return null
     })
+    console.log(eachList)
     this.setState({
       debitBalance: debitAmount,
       creditBalance: creditAmount,
@@ -120,8 +138,6 @@ class Dashboard extends Component {
   }
 
   onBarApiSuccess = data => {
-    // console.log('barApiSuccess')
-    // console.log(data)
     this.setState({barDataList: [...data]})
   }
 
@@ -167,7 +183,6 @@ class Dashboard extends Component {
               </div>
             </div>
             <UserLastTransactions />
-
             <div className="barchart-sec">
               <h1> Debit & Credit Overview </h1>
               <Barchart barDataList={barDataList} />

@@ -5,11 +5,9 @@ import {FiLogOut} from 'react-icons/fi'
 
 import './index.css'
 
-const LogoutPopup = props => {
+const LogoutPopup = () => {
   const onLogout = () => {
-    const {history} = props
     Cookie.remove('jwt_token')
-    history.replace('/login')
     window.location.reload()
   }
 

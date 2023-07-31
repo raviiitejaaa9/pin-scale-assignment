@@ -1,20 +1,29 @@
+import Cookie from 'js-cookie'
 import AddPopup from '../AddPopup'
+
+import './index.css'
 
 const Header = props => {
   const {headerName} = props
-  let head
-  if (headerName === 'DASHBOARD') {
-    head = 'Accounts'
-  } else if (headerName === 'PROFILE') {
-    head = 'Profile'
+
+  const jwtToken = Cookie.get('jwt_token')
+  let currentUser
+  if (jwtToken === '3') {
+    currentUser = 'admin'
   } else {
-    head = 'All Transactions'
+    currentUser = 'user'
+  }
+  let popupEl
+  if (currentUser === 'user') {
+    popupEl = <AddPopup />
+  } else {
+    popupEl = null
   }
 
   return (
     <div className="app-header">
       <h1 className="app-head"> {headerName} </h1>
-      <AddPopup />
+      {popupEl}
     </div>
   )
 }

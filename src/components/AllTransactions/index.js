@@ -2,33 +2,42 @@ import {Component} from 'react'
 import Cookie from 'js-cookie'
 
 import Navbar from '../Navbar'
-import Header from '../Header'
+import TransactionsHeader from '../TransactionsHeader'
 import TransactionItem from '../TransactionItem'
+import DashTransactionItem from '../DashTransactionItem'
 
 import './index.css'
 
 const apiConstants = {
   dashboard: 'DASHBOARD',
-  allTransactions: 'ALL TRANSACTIONS',
+  allTransactions: 'all transactions',
   profile: 'PROFILE',
+  debit: 'debit',
+  credit: 'credit',
 }
 
 class AllTransactions extends Component {
   state = {
     transactionsList: [],
     selected: apiConstants.dashboard,
+    currentUser: '',
+    selectedView: apiConstants.allTransactions,
   }
 
   async componentDidMount() {
-    const url =
-      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=100&offset=0'
     const jwtToken = Cookie.get('jwt_token')
     let userRole
-    if (jwtToken === 3) {
+    if (jwtToken === '3') {
       userRole = 'admin'
     } else {
       userRole = 'user'
     }
+
+    this.setState({currentUser: userRole})
+
+    const url =
+      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=100&offset=0'
+
     const options = {
       method: 'GET',
       headers: {
@@ -71,28 +80,81 @@ class AllTransactions extends Component {
     this.setState({selected: apiConstants[reqId]})
   }
 
+  changeList = value => {
+    this.setState({selectedView: apiConstants[value]})
+  }
+
+  renderUserView = () => {
+    const {transactionsList} = this.state
+    return (
+      <div className="all-transactions-sec">
+        <ul className="transactions-list-container">
+          <li className="dash-list-item">
+            <p className="para-el transaction-name "> Transaction Name </p>
+            <p className="para-el transaction-para "> Category </p>
+            <p className="para-el transaction-para "> Date </p>
+            <p className="para-el amount "> Amount </p>
+          </li>
+          <hr className="hr-el" />
+          {transactionsList.map(eachItem => (
+            <TransactionItem key={eachItem.id} eachTransaction={eachItem} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  filteredList = () => {
+    const {transactionsList, selectedView} = this.state
+    const filteredList = transactionsList.filter(
+      each => each.type === selectedView,
+    )
+    return filteredList
+  }
+
+  renderAdminView = () => {
+    const {transactionsList, selectedView} = this.state
+    let reqList = []
+    if (selectedView !== 'all transactions') {
+      reqList = this.filteredList()
+    } else {
+      reqList = transactionsList
+    }
+    return (
+      <div className="all-transactions-sec">
+        <ul className="admin-transactions-list-container">
+          <li className="dash-list-item">
+            <p className="para-el admin-transaction-name ">
+              {' '}
+              Transaction Name{' '}
+            </p>
+            <p className="para-el admin-transaction-para "> Category </p>
+            <p className="para-el admin-transaction-para "> Date </p>
+            <p className="para-el admin-amount "> Amount </p>
+          </li>
+          <hr className="hr-el" />
+          {reqList.map(eachItem => (
+            <DashTransactionItem key={eachItem.id} eachTransaction={eachItem} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
   render() {
-    const {transactionsList, selected} = this.state
+    const {selected, currentUser} = this.state
 
     return (
       <div className="app-container">
         <Navbar isSelected={selected} onChangeNavItem={this.onChangeNavItem} />
         <div className="app-sec">
-          <Header headerName="All Transactions" />
-          <div className="all-transactions-sec">
-            <ul className="transactions-list-container">
-              <li className="dash-list-item">
-                <p className="para-el transaction-name "> Transaction Name </p>
-                <p className="para-el transaction-para "> Category </p>
-                <p className="para-el transaction-para "> Date </p>
-                <p className="para-el amount "> Amount </p>
-              </li>
-              <hr className="hr-el" />
-              {transactionsList.map(eachItem => (
-                <TransactionItem key={eachItem.id} eachTransaction={eachItem} />
-              ))}
-            </ul>
-          </div>
+          <TransactionsHeader
+            headerName="All Transactions"
+            changeList={this.changeList}
+          />
+          {currentUser === 'user'
+            ? this.renderUserView()
+            : this.renderAdminView()}
         </div>
       </div>
     )

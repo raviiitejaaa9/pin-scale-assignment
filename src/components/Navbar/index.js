@@ -1,12 +1,10 @@
-import Cookie from 'js-cookie'
-import {FiLogOut} from 'react-icons/fi'
-import {Redirect, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 import LogoutPopup from '../LogoutPopup'
 import './index.css'
 
 const Navbar = props => {
-  const {isSelected, onChangeNavItem} = props
+  const {onChangeNavItem} = props
 
   // console.log(isSelected)
   // const dashboard = 'dashboard'

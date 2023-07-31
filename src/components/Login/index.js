@@ -1,6 +1,6 @@
 import {Component} from 'react'
 import Cookie from 'js-cookie'
-import {Link} from 'react-router-dom'
+
 // import axios from 'axios'
 
 import './index.css'
@@ -9,7 +9,6 @@ class Login extends Component {
   state = {
     username: '',
     password: '',
-    showSubmitError: false,
     errorMsg: '',
   }
 
@@ -33,7 +32,6 @@ class Login extends Component {
       password,
     }
 
-    const jwtToken = Cookie.get('jwt_token')
     const options = {
       method: 'POST',
       headers: {
@@ -74,7 +72,7 @@ class Login extends Component {
   }
 
   render() {
-    const {username, password, showSubmitError, errorMsg} = this.state
+    const {username, password, errorMsg} = this.state
 
     return (
       <div className="login-page">

@@ -1,3 +1,6 @@
+/*
+               
+*/
 .all-transactions-sec {
   padding: 10px;
   margin: 10px;
@@ -32,4 +35,26 @@
 
 .transaction-para {
   width: 21%;
+}
+
+.admin-transactions-list-container {
+  list-style-type: none;
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.admin-transaction-name {
+  width: 26%;
+}
+
+.admin-transaction-para {
+  width: 19%;
+}
+
+.admin-amount {
+  width: 22%;
 }

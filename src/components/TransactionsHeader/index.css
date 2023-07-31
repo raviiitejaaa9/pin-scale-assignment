@@ -1,0 +1,9 @@
+.admin-transactions-list-container {
+}
+
+.admin-app-header {
+  height: 130px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}

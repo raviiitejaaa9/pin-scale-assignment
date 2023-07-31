@@ -38,13 +38,12 @@ class Profile extends Component {
       },
     }
     const response = await fetch(profileUrl, options)
-    console.log(response)
+
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
+
       const {users} = data
       const reqUserData = users[0]
-      // console.log(reqUserData)
       const modifiedUserDetails = {
         city: reqUserData.city,
         country: reqUserData.country,
@@ -56,7 +55,7 @@ class Profile extends Component {
         postalCode: reqUserData.postal_code,
         presentAddress: reqUserData.present_address,
       }
-      // console.log(modifiedUserDetails)
+
       this.onApiSuccess(modifiedUserDetails)
     } else {
       this.onApiFailure()
@@ -64,7 +63,6 @@ class Profile extends Component {
   }
 
   onApiSuccess = data => {
-    // console.log('success')
     this.setState({userDetails: {...data}})
   }
 
@@ -83,7 +81,6 @@ class Profile extends Component {
       country,
       dateOfBirth,
       email,
-      id,
       name,
       permanentAddress,
       postalCode,

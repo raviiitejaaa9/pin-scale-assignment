@@ -1,56 +1,63 @@
-/* 
- const {creditBalance, debitBalance} = data.reduce(
-      (accumulator, current) => ({
-        creditBalance:
-          current.type === 'credit'
-            ? accumulator.creditBalance + current.amount
-            : accumulator.creditBalance,
-        debitBalance:
-          current.type === 'debit'
-            ? accumulator.debitBalance + current.amount
-            : accumulator.debitBalance,
-      }),
-      {creditBalance: 0, debitBalance: 0},
-    )
+body {
+  margin: 0;
+}
 
-    this.setState({
-      creditBalance,
-      debitBalance,
-    })
+* {
+  box-sizing: border-box;
+}
 
+.app-container {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+}
 
-    for (const each of data) {
-      if (each.type === 'credit') {
-        creditAmount += each.amount
-      } else {
-        debitAmount += each.amount
-      }
-    }
+.app-sec {
+  width: 100%;
+}
 
- const threeTransactionsUrl =
-      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions'
-    const limit = 3
-    const offset = 0
-    const url = `${apiUrl}?limit=${limit}&offset=${offset}`
-    // console.log(url)
-    const transactionsResponse = await fetch(url)
-    // console.log(transactionsResponse)
+.app-head {
+  margin-left: 20px;
+}
 
+.add-transaction-btn {
+  margin-right: 20px;
+  border: none;
+  background-color: blue;
+  height: 26px;
+  border-radius: 5px;
+}
 
-     const reqUser = userDetails.filter(eachUser => eachUser.email === username)
-    if (reqUser.length === 0) {
-      const msg = 'username is wrong'
-      this.onSubmitFailure(msg)
-    } else {
-      const user = reqUser[0]
-      if (user.password !== password) {
-        const msg = 'password is wrong'
-        this.onSubmitFailure(msg)
-      } else {
-        this.onSubmitSuccess(user)
-      }
-    }
-*/
+.add-transaction-form {
+  height: 71vh;
+  width: 450px;
+  background-color: #ffffff;
+  border: solid 1px lightgray;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.transaction-head-sec {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.add-transaction {
+  background-color: #101053;
+  border: none;
+  border-radius: 4px;
+  height: 36px;
+  width: 130px;
+  color: #ffffff;
+}
 
 .dashboard-container {
   background-color: #f2f2f2;
@@ -78,4 +85,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.barchart-sec {
+  margin: 10px;
 }
