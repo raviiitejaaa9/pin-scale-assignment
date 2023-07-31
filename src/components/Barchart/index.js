@@ -39,7 +39,7 @@ const Barchart = props => {
     ...transformedData[date],
   }))
 
-  console.log(chartData)
+  // console.log(chartData)
 
   return (
     <ResponsiveContainer width="100%" height={400}>

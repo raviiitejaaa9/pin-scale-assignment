@@ -32,24 +32,24 @@ const Navbar = props => {
 
   return (
     <nav className="vertical-navbar">
-      <ul className="navbar-items">
-        <li className="list-items">
-          <img
-            src="https://sawn.org.uk/wp-content/uploads/2020/03/Money-Matters-Full-Colour-Logo.png"
-            className="app-logo"
-            alt="app-logo"
-          />
-        </li>
-        <li className="list-items" onClick={onClickDashboard}>
-          Dashboard
-        </li>
-        <li className="list-items" onClick={onClickTransactions}>
-          All Transactions
-        </li>
-        <li className="list-items" onClick={onClickProfile}>
-          Profile
-        </li>
-      </ul>
+      <div className="nav-logo-list-sec">
+        <img
+          src="https://sawn.org.uk/wp-content/uploads/2020/03/Money-Matters-Full-Colour-Logo.png"
+          className="app-logo"
+          alt="app-logo"
+        />
+        <ul className="navbar-items">
+          <li className="list-items" onClick={onClickDashboard}>
+            Dashboard
+          </li>
+          <li className="list-items" onClick={onClickTransactions}>
+            All Transactions
+          </li>
+          <li className="list-items" onClick={onClickProfile}>
+            Profile
+          </li>
+        </ul>
+      </div>
       <div className="nav-profile-sec">
         <img
           className="profile-img"

@@ -26,6 +26,30 @@
         debitAmount += each.amount
       }
     }
+
+ const threeTransactionsUrl =
+      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions'
+    const limit = 3
+    const offset = 0
+    const url = `${apiUrl}?limit=${limit}&offset=${offset}`
+    // console.log(url)
+    const transactionsResponse = await fetch(url)
+    // console.log(transactionsResponse)
+
+
+     const reqUser = userDetails.filter(eachUser => eachUser.email === username)
+    if (reqUser.length === 0) {
+      const msg = 'username is wrong'
+      this.onSubmitFailure(msg)
+    } else {
+      const user = reqUser[0]
+      if (user.password !== password) {
+        const msg = 'password is wrong'
+        this.onSubmitFailure(msg)
+      } else {
+        this.onSubmitSuccess(user)
+      }
+    }
 */
 
 .dashboard-container {

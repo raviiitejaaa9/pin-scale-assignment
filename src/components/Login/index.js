@@ -95,34 +95,23 @@ class Login extends Component {
     this.setState({errorMsg: msg})
   }
 
-  onSubmitSuccess = user => {
+  onSubmitSuccess = id => {
     const {history} = this.props
-    this.setState({errorMsg: 'log in successful'})
-    // console.log(user)
-    Cookie.set('jwt_token', user.userId, {sameSite: 'none', secure: true})
+    Cookie.set('jwt_token', id)
     history.replace('/')
   }
 
   onSubmitForm = async event => {
     event.preventDefault()
-    console.log('submit triggered')
     const {username, password} = this.state
-    // console.log(username)
-    // const user = {username, password}
-    const apiUrl = 'https://bursting-gelding-24.hasura.app/api/rest/get-user-id'
+    const apiUrl = `https://bursting-gelding-24.hasura.app/api/rest/get-user-id?email=${username}&password=${password}`
 
     const userInfo = {
       email: username,
       password,
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'x-hasura-admin-secret':
-        'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
-      'x-hasura-role': 'user',
-    }
-
+    const jwtToken = Cookie.get('jwt_token')
     const options = {
       method: 'GET',
       headers: {
@@ -132,23 +121,24 @@ class Login extends Component {
       },
     }
 
-    console.log(userInfo)
-
     const response = await fetch(apiUrl, options)
-    console.log(response)
 
-    const reqUser = userDetails.filter(eachUser => eachUser.email === username)
-    if (reqUser.length === 0) {
-      const msg = 'username is wrong'
-      this.onSubmitFailure(msg)
-    } else {
-      const user = reqUser[0]
-      if (user.password !== password) {
-        const msg = 'password is wrong'
-        this.onSubmitFailure(msg)
-      } else {
-        this.onSubmitSuccess(user)
+    const errorMsg = 'Incorrect Username or Password'
+    if (response.ok) {
+      const data = await response.json()
+      const modifiedData = {
+        getUserId: data.get_user_id,
       }
+      const {getUserId} = modifiedData
+
+      if (getUserId.length === 1) {
+        const {id} = getUserId[0]
+        this.onSubmitSuccess(id)
+      } else {
+        this.onSubmitFailure(errorMsg)
+      }
+    } else {
+      this.onSubmitFailure(errorMsg)
     }
   }
 

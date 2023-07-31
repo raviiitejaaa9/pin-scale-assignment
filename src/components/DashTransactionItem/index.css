@@ -1,0 +1,28 @@
+.dash-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.para-el {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.hr-el {
+  border-color: lightgray;
+  width: 100%;
+}
+
+.debit-transaction {
+  color: red;
+}
+
+.credit-transaction {
+  color: green;
+}
+.icons {
+  width: 30px;
+  height: 30px;
+}

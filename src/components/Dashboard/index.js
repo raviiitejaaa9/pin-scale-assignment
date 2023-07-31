@@ -1,8 +1,8 @@
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Cookie from 'js-cookie'
-import 'regenerator-runtime/runtime'
 
+import UserLastTransactions from '../UserLastTransactions'
 import Barchart from '../Barchart'
 
 import './index.css'
@@ -55,14 +55,8 @@ class Dashboard extends Component {
       this.onFailure()
     }
 
-    const threeTransactionsUrl =
-      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions'
-    const limit = 3
-    const offset = 0
-    const url = `${apiUrl}?limit=${limit}&offset=${offset}`
-    // console.log(url)
-    const transactionsResponse = await fetch(url)
-    // console.log(transactionsResponse)
+    const adminBarUrl =
+      'https://bursting-gelding-24.hasura.app/api/rest/daywise-totals-last-7-days-admin'
 
     const barDataUrl =
       'https://bursting-gelding-24.hasura.app/api/rest/daywise-totals-7-days'
@@ -155,9 +149,7 @@ class Dashboard extends Component {
             />
           </div>
         </div>
-        <div className="last-transactions-sec">
-          <h1> Last Transactions </h1>
-        </div>
+        <UserLastTransactions />
 
         <div className="barchart-sec">
           <h1> Debit & Credit Overview </h1>

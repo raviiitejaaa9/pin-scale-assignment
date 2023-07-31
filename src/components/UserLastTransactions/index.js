@@ -1,17 +1,15 @@
 import {Component} from 'react'
 import Cookie from 'js-cookie'
-import TransactionItem from '../TransactionItem'
+import DashTransactionItem from '../DashTransactionItem'
 
 import './index.css'
 
-class AllTransactions extends Component {
+class UserLastTransactions extends Component {
   state = {
-    transactionsList: [],
+    last3Transactions: [],
   }
 
   async componentDidMount() {
-    const url =
-      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=100&offset=0'
     const jwtToken = Cookie.get('jwt_token')
     let userRole
     if (jwtToken === 3) {
@@ -19,6 +17,9 @@ class AllTransactions extends Component {
     } else {
       userRole = 'user'
     }
+
+    const url =
+      'https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=3&offset=0'
     const options = {
       method: 'GET',
       headers: {
@@ -30,7 +31,7 @@ class AllTransactions extends Component {
       },
     }
     const response = await fetch(url, options)
-    // console.log(response)
+
     if (response.ok) {
       const data = await response.json()
       const {transactions} = data
@@ -50,7 +51,7 @@ class AllTransactions extends Component {
       transactionName: each.transaction_name,
       type: each.type,
     }))
-    this.setState({transactionsList: [...modifiedList]})
+    this.setState({last3Transactions: [...modifiedList]})
   }
 
   onApiCallFailure = () => {
@@ -58,21 +59,14 @@ class AllTransactions extends Component {
   }
 
   render() {
-    const {transactionsList} = this.state
-    console.log(transactionsList)
+    const {last3Transactions} = this.state
+
     return (
-      <div className="all-transactions-sec">
-        <h1> All Transactions </h1>
-        <ul className="transactions-list-container">
-          <li className="dash-list-item">
-            <p className="para-el"> Transaction Name </p>
-            <p className="para-el"> Category </p>
-            <p className="para-el"> Date </p>
-            <p className="para-el"> Amount </p>
-          </li>
-          <hr className="hr-el" />
-          {transactionsList.map(eachItem => (
-            <TransactionItem key={eachItem.id} eachTransaction={eachItem} />
+      <div className="dash-transactions-sec">
+        <h1> Last Transaction </h1>
+        <ul className="dash-transaction-list">
+          {last3Transactions.map(eachItem => (
+            <DashTransactionItem key={eachItem.id} eachTransaction={eachItem} />
           ))}
         </ul>
       </div>
@@ -80,4 +74,4 @@ class AllTransactions extends Component {
   }
 }
 
-export default AllTransactions
+export default UserLastTransactions

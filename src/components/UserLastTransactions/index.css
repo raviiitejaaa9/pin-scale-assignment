@@ -1,19 +1,13 @@
-.all-transactions-sec {
+.dash-transactions-sec {
   padding: 10px;
   margin: 10px;
 }
 
-.transactions-list-container {
+.dash-transaction-list {
   list-style-type: none;
   background-color: #ffffff;
   padding: 8px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-}
-
-.transaction-name-sec {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
