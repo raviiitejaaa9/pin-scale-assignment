@@ -1,0 +1,10 @@
+.icons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 40%;
+}
+
+.pencil-icon {
+  color: #9882ce;
+}

@@ -65,10 +65,10 @@ class AllTransactions extends Component {
         <h1> All Transactions </h1>
         <ul className="transactions-list-container">
           <li className="dash-list-item">
-            <p className="para-el"> Transaction Name </p>
-            <p className="para-el"> Category </p>
-            <p className="para-el"> Date </p>
-            <p className="para-el"> Amount </p>
+            <p className="para-el transaction-name "> Transaction Name </p>
+            <p className="para-el transaction-para "> Category </p>
+            <p className="para-el transaction-para "> Date </p>
+            <p className="para-el amount "> Amount </p>
           </li>
           <hr className="hr-el" />
           {transactionsList.map(eachItem => (

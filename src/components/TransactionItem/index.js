@@ -1,5 +1,5 @@
 import {BiDownArrowCircle, BiUpArrowCircle} from 'react-icons/bi'
-import {LuPencil} from 'react-icons/lu'
+import {BsPencil} from 'react-icons/bs'
 import {RiDeleteBinLine} from 'react-icons/ri'
 
 import './index.css'
@@ -10,7 +10,7 @@ const TransactionItem = props => {
   let amountEl
   let iconEl
   if (type === 'debit') {
-    amountEl = <p className="para-el debit-transaction"> -{amount} </p>
+    amountEl = <p className="para-el debit-transaction  "> -{amount} </p>
     iconEl = <BiDownArrowCircle className="debit-transaction icons" />
   } else {
     amountEl = <p className="para-el credit-transaction"> +{amount}</p>
@@ -34,13 +34,17 @@ const TransactionItem = props => {
       <li className="dash-list-item">
         <div className="transaction-name-sec">
           {iconEl}
-          <p className="para-el"> {transactionName} </p>
+          <p className="para-el transaction-name "> {transactionName} </p>
         </div>
-        <p className="para-el"> {category} </p>
-        <p className="para-el"> {formattedDate} </p>
-        {amountEl}
-        <LuPencil  className = "icons debit-transaction"  />
-        <RiDeleteBinLine  className = "icons debit-transaction" />
+        <p className="para-el transaction-para "> {category} </p>
+        <p className="para-el transaction-para "> {formattedDate} </p>
+        <div className="amount">
+          {amountEl}
+          <div className="icons-container">
+            <BsPencil className="icons pencil-icon " />
+            <RiDeleteBinLine className="icons debit-transaction" />
+          </div>
+        </div>
       </li>
       <hr className="hr-el" />
     </>
