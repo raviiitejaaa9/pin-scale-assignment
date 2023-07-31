@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/pin-scale-assignment/static/css/main.cd68df52.chunk.css",
+    "main.js": "/pin-scale-assignment/static/js/main.a10e15f5.chunk.js",
+    "main.js.map": "/pin-scale-assignment/static/js/main.a10e15f5.chunk.js.map",
+    "runtime-main.js": "/pin-scale-assignment/static/js/runtime-main.908b284f.js",
+    "runtime-main.js.map": "/pin-scale-assignment/static/js/runtime-main.908b284f.js.map",
+    "static/js/2.34f0fbfc.chunk.js": "/pin-scale-assignment/static/js/2.34f0fbfc.chunk.js",
+    "static/js/2.34f0fbfc.chunk.js.map": "/pin-scale-assignment/static/js/2.34f0fbfc.chunk.js.map",
+    "index.html": "/pin-scale-assignment/index.html",
+    "static/css/main.cd68df52.chunk.css.map": "/pin-scale-assignment/static/css/main.cd68df52.chunk.css.map",
+    "static/js/2.34f0fbfc.chunk.js.LICENSE.txt": "/pin-scale-assignment/static/js/2.34f0fbfc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.908b284f.js",
+    "static/js/2.34f0fbfc.chunk.js",
+    "static/css/main.cd68df52.chunk.css",
+    "static/js/main.a10e15f5.chunk.js"
+  ]
+}
