@@ -3,10 +3,23 @@ import Cookie from 'js-cookie'
 import DashTransactionItem from '../DashTransactionItem'
 
 import './index.css'
+import LoadingPage from '../LoadingPage'
+import ErrorPage from '../ErrorPage'
+
+const apiConstants = {
+  dashboard: 'DASHBOARD',
+  allTransactions: 'ALL TRANSACTIONS',
+  profile: 'PROFILE',
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  loading: 'LOADING',
+}
 
 class UserLastTransactions extends Component {
   state = {
     last3Transactions: [],
+    last3TransactionsStatus: apiConstants.initial,
   }
 
   async componentDidMount() {
@@ -30,6 +43,9 @@ class UserLastTransactions extends Component {
         'x-hasura-user-id': jwtToken,
       },
     }
+    this.setState({
+      last3TransactionsStatus: apiConstants.loading,
+    })
     const response = await fetch(url, options)
 
     if (response.ok) {
@@ -51,16 +67,21 @@ class UserLastTransactions extends Component {
       transactionName: each.transaction_name,
       type: each.type,
     }))
-    this.setState({last3Transactions: [...modifiedList]})
+    this.setState({
+      last3Transactions: [...modifiedList],
+      last3TransactionsStatus: apiConstants.success,
+    })
   }
 
   onApiCallFailure = () => {
     console.log('failure')
+    this.setState({
+      last3TransactionsStatus: apiConstants.failure,
+    })
   }
 
-  render() {
+  renderSuccessView = () => {
     const {last3Transactions} = this.state
-
     return (
       <div className="dash-transactions-sec">
         <h1> Last Transaction </h1>
@@ -71,6 +92,24 @@ class UserLastTransactions extends Component {
         </ul>
       </div>
     )
+  }
+
+  renderView = () => {
+    const {last3TransactionsStatus} = this.state
+    switch (last3TransactionsStatus) {
+      case apiConstants.success:
+        return this.renderSuccessView()
+      case apiConstants.loading:
+        return <LoadingPage />
+      case apiConstants.failure:
+        return <ErrorPage />
+      default:
+        return null
+    }
+  }
+
+  render() {
+    return this.renderView()
   }
 }
 

@@ -6,6 +6,8 @@ import MobileNavbar from '../MobileNavbar'
 import TransactionsHeader from '../TransactionsHeader'
 import TransactionItem from '../TransactionItem'
 import DashTransactionItem from '../DashTransactionItem'
+import ErrorPage from '../ErrorPage'
+import LoadingPage from '../LoadingPage'
 
 import './index.css'
 
@@ -15,6 +17,10 @@ const apiConstants = {
   profile: 'PROFILE',
   debit: 'debit',
   credit: 'credit',
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  loading: 'LOADING',
 }
 
 class AllTransactions extends Component {
@@ -23,6 +29,7 @@ class AllTransactions extends Component {
     selected: apiConstants.dashboard,
     currentUser: '',
     selectedView: apiConstants.allTransactions,
+    apiCallStatus: apiConstants.initial,
   }
 
   async componentDidMount() {
@@ -34,7 +41,7 @@ class AllTransactions extends Component {
       userRole = 'user'
     }
 
-    this.setState({currentUser: userRole})
+    this.setState({currentUser: userRole, apiCallStatus: apiConstants.loading})
 
     const url =
       'https://bursting-gelding-24.hasura.app/api/rest/all-transactions?limit=100&offset=0'
@@ -70,11 +77,17 @@ class AllTransactions extends Component {
       transactionName: each.transaction_name,
       type: each.type,
     }))
-    this.setState({transactionsList: [...modifiedList]})
+    this.setState({
+      transactionsList: [...modifiedList],
+      apiCallStatus: apiConstants.success,
+    })
   }
 
   onApiCallFailure = () => {
     console.log('failure')
+    this.setState({
+      apiCallStatus: apiConstants.failure,
+    })
   }
 
   onChangeNavItem = reqId => {
@@ -142,8 +155,29 @@ class AllTransactions extends Component {
     )
   }
 
+  renderSuccessView = () => {
+    const {currentUser} = this.state
+    return currentUser === 'user'
+      ? this.renderUserView()
+      : this.renderAdminView()
+  }
+
+  renderView = () => {
+    const {apiCallStatus} = this.state
+    switch (apiCallStatus) {
+      case apiConstants.success:
+        return this.renderSuccessView()
+      case apiConstants.loading:
+        return <LoadingPage />
+      case apiConstants.failure:
+        return <ErrorPage />
+      default:
+        return null
+    }
+  }
+
   render() {
-    const {selected, currentUser} = this.state
+    const {selected} = this.state
 
     return (
       <div className="app-container">
@@ -157,9 +191,7 @@ class AllTransactions extends Component {
             headerName="All Transactions"
             changeList={this.changeList}
           />
-          {currentUser === 'user'
-            ? this.renderUserView()
-            : this.renderAdminView()}
+          {this.renderView()}
         </div>
       </div>
     )
