@@ -22,8 +22,6 @@ class Home extends Component {
   }
 
   onChangeNavItem = reqId => {
-    // console.log(reqId)
-    // console.log('triggered')
     this.setState({selected: apiConstants[reqId]})
   }
 

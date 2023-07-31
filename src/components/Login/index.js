@@ -5,84 +5,6 @@ import {Link} from 'react-router-dom'
 
 import './index.css'
 
-const userDetails = [
-  {
-    email: 'admin@gmail.com',
-    password: 'Admin@123',
-    userId: 3,
-  },
-  {
-    email: 'jane.doe@gmail.com',
-    password: 'janedoe@123',
-    userId: 1,
-  },
-  {
-    email: 'samsmith@gmail.com',
-    password: 'samsmith@123',
-    userId: 2,
-  },
-  {
-    email: 'rahul@gmail.com',
-    password: 'rahul@123',
-    userId: 4,
-  },
-  {
-    email: 'teja@gmail.com',
-    password: 'teja@123',
-    userId: 5,
-  },
-  {
-    email: 'loki@gmail.com',
-    password: 'loki@123',
-    userId: 6,
-  },
-  {
-    email: 'ramesh@gmail.com',
-    password: 'ramesh@123',
-    userId: 7,
-  },
-  {
-    email: 'suresh@gmail.com',
-    password: 'suresh@123',
-    userId: 8,
-  },
-  {
-    email: 'prem@gmail.com',
-    password: 'prem@123',
-    userId: 9,
-  },
-  {
-    email: 'piyush@gmail.com',
-    password: 'piyush@123',
-    userId: 10,
-  },
-  {
-    email: 'isha@gmail.com',
-    password: 'isha@123',
-    userId: 12,
-  },
-  {
-    email: 'seema@gmail.com',
-    password: 'seema@123',
-    userId: 14,
-  },
-  {
-    email: 'seema@123',
-    password: 'arjun@123',
-    userId: 15,
-  },
-  {
-    email: 'radha@gmail.com',
-    password: 'radha@123',
-    userId: 16,
-  },
-  {
-    email: 'phani@gmail.com',
-    password: 'phani@123',
-    userId: 17,
-  },
-]
-
 class Login extends Component {
   state = {
     username: '',
@@ -104,7 +26,7 @@ class Login extends Component {
   onSubmitForm = async event => {
     event.preventDefault()
     const {username, password} = this.state
-    const apiUrl = `https://bursting-gelding-24.hasura.app/api/rest/get-user-id?email=${username}&password=${password}`
+    const apiUrl = 'https://bursting-gelding-24.hasura.app/api/rest/get-user-id'
 
     const userInfo = {
       email: username,
@@ -113,12 +35,13 @@ class Login extends Component {
 
     const jwtToken = Cookie.get('jwt_token')
     const options = {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'x-hasura-admin-secret':
           'g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF',
       },
+      body: JSON.stringify(userInfo),
     }
 
     const response = await fetch(apiUrl, options)

@@ -32,9 +32,9 @@ const TransactionItem = props => {
   return (
     <>
       <li className="dash-list-item">
-        <div className="transaction-name-sec">
+        <div className="transaction-name-sec transaction-name">
           {iconEl}
-          <p className="para-el transaction-name "> {transactionName} </p>
+          <p className="para-el  "> {transactionName} </p>
         </div>
         <p className="para-el transaction-para "> {category} </p>
         <p className="para-el transaction-para "> {formattedDate} </p>

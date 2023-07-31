@@ -1,7 +1,8 @@
 import Cookie from 'js-cookie'
 import {FiLogOut} from 'react-icons/fi'
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 
+import LogoutPopup from '../LogoutPopup'
 import './index.css'
 
 const Navbar = props => {
@@ -9,13 +10,6 @@ const Navbar = props => {
 
   // console.log(isSelected)
   // const dashboard = 'dashboard'
-  const onLogout = () => {
-    const {history} = props
-    console.log(props)
-    console.log(history)
-    Cookie.remove('jwt_token')
-    history.replace('/login')
-  }
 
   const onClickDashboard = () => {
     //  console.log(dashboard)
@@ -39,15 +33,21 @@ const Navbar = props => {
           alt="app-logo"
         />
         <ul className="navbar-items">
-          <li className="list-items" onClick={onClickDashboard}>
-            Dashboard
-          </li>
-          <li className="list-items" onClick={onClickTransactions}>
-            All Transactions
-          </li>
-          <li className="list-items" onClick={onClickProfile}>
-            Profile
-          </li>
+          <Link to="/" className="link-el">
+            <li className="list-items" onClick={onClickDashboard}>
+              Dashboard
+            </li>
+          </Link>
+          <Link to="all-transactions" className="link-el">
+            <li className="list-items" onClick={onClickTransactions}>
+              All Transactions
+            </li>
+          </Link>
+          <Link to="/profile" className="link-el">
+            <li className="list-items" onClick={onClickProfile}>
+              Profile
+            </li>
+          </Link>
         </ul>
       </div>
       <div className="nav-profile-sec">
@@ -59,7 +59,7 @@ const Navbar = props => {
         <div className="name-email-container">
           <div className="name-logout-btn-container">
             <p> username </p>
-            <FiLogOut className="react-icon" onClick={onLogout} />
+            <LogoutPopup />
           </div>
           <p> email@gmail.com </p>
         </div>

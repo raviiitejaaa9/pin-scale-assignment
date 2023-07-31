@@ -1,12 +1,22 @@
 import {Component} from 'react'
 import Cookie from 'js-cookie'
+
+import Navbar from '../Navbar'
+import Header from '../Header'
 import TransactionItem from '../TransactionItem'
 
 import './index.css'
 
+const apiConstants = {
+  dashboard: 'DASHBOARD',
+  allTransactions: 'ALL TRANSACTIONS',
+  profile: 'PROFILE',
+}
+
 class AllTransactions extends Component {
   state = {
     transactionsList: [],
+    selected: apiConstants.dashboard,
   }
 
   async componentDidMount() {
@@ -57,24 +67,33 @@ class AllTransactions extends Component {
     console.log('failure')
   }
 
+  onChangeNavItem = reqId => {
+    this.setState({selected: apiConstants[reqId]})
+  }
+
   render() {
-    const {transactionsList} = this.state
-    console.log(transactionsList)
+    const {transactionsList, selected} = this.state
+
     return (
-      <div className="all-transactions-sec">
-        <h1> All Transactions </h1>
-        <ul className="transactions-list-container">
-          <li className="dash-list-item">
-            <p className="para-el transaction-name "> Transaction Name </p>
-            <p className="para-el transaction-para "> Category </p>
-            <p className="para-el transaction-para "> Date </p>
-            <p className="para-el amount "> Amount </p>
-          </li>
-          <hr className="hr-el" />
-          {transactionsList.map(eachItem => (
-            <TransactionItem key={eachItem.id} eachTransaction={eachItem} />
-          ))}
-        </ul>
+      <div className="app-container">
+        <Navbar isSelected={selected} onChangeNavItem={this.onChangeNavItem} />
+        <div className="app-sec">
+          <Header headerName="All Transactions" />
+          <div className="all-transactions-sec">
+            <ul className="transactions-list-container">
+              <li className="dash-list-item">
+                <p className="para-el transaction-name "> Transaction Name </p>
+                <p className="para-el transaction-para "> Category </p>
+                <p className="para-el transaction-para "> Date </p>
+                <p className="para-el amount "> Amount </p>
+              </li>
+              <hr className="hr-el" />
+              {transactionsList.map(eachItem => (
+                <TransactionItem key={eachItem.id} eachTransaction={eachItem} />
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     )
   }
