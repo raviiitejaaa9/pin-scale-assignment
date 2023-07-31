@@ -81,7 +81,11 @@ class Profile extends Component {
       <div className="profile-container">
         <div className="profile-sec">
           <div className="profile-img-sec">
-            <img src="" alt="display-pic" className="display-pic" />
+            <img
+              src="https://thumbs.dreamstime.com/b/businesswoman-profile-icon-female-portrait-flat-design-vector-illustration-47075260.jpg"
+              alt="display-pic"
+              className="display-pic"
+            />
           </div>
           <div className="profile-input-el-sec">
             <div className="input-sec">

@@ -6,6 +6,7 @@ import {GrFormClose} from 'react-icons/gr'
 
 import Navbar from '../Navbar'
 import Dashboard from '../Dashboard'
+import AllTransactions from '../AllTransactions'
 import Profile from '../Profile'
 
 import './index.css'
@@ -119,6 +120,8 @@ class Home extends Component {
     switch (selected) {
       case apiConstants.dashboard:
         return <Dashboard />
+      case apiConstants.allTransactions:
+        return <AllTransactions />
       case apiConstants.profile:
         return <Profile />
       default:
